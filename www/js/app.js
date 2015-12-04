@@ -1,8 +1,20 @@
-// Ionic Starter App
+// App.js - Main file for testing the Cordova Dgram Plugin
+// Copyright (2015) James McCarthy
+//
+//     This program is free software; you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation; either version 2 of the License, or
+//     (at your option) any later version.
+//
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+//
+//     You should have received a copy of the GNU General Public License along
+//     with this program; if not, write to the Free Software Foundation, Inc.,
+//     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'starter.controllers'])
 
 .run(function($ionicPlatform, SocketFactory) {
@@ -18,7 +30,9 @@ angular.module('starter', ['ionic', 'starter.controllers'])
     }
     if(dgram) {
       console.log('UDP available');
-      SocketFactory.initialize(false);
+      //TODO - Toggle this to broacast or not
+      useBroadcast = false;
+      SocketFactory.initialize(useBroadcast);
     }
     window.onerror = function(err) {
       log('window.onerror: ' + err)
@@ -42,7 +56,10 @@ angular.module( 'starter.controllers', [ 'starter.services'] )
 {
   $scope.sendMessage = function() {
     console.log('calling send');
-    SocketFactory.sendText('10.150.0.255', 5555, 'Yo does this work?', $scope.sendCallback);
+    //TODO - You should probably change this
+    ipAddress = '10.150.0.255';
+    port = 5555;
+    SocketFactory.sendText(ipAddress, port, 'Yo does this work?', $scope.sendCallback);
     console.log('text sent');
   }
 
